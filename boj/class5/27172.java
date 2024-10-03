@@ -21,7 +21,7 @@ public class Main {
         N이 최대 100_000이므로 O(N^2) 알고리즘은 불가능
         즉, 각 수를 순회하면서 다른 모든 수를 비교하는 게 불가능하다는 의미
 
-        배수만 검증하자
+        배수만 검증
      */
 
     public static void main(String[] args) throws IOException {
@@ -30,27 +30,29 @@ public class Main {
         StringTokenizer stz = new StringTokenizer(reader.readLine());
 
         int[] arr = new int[N];
-        Map<Integer, Integer> map = new HashMap<>();
+        boolean[] exists = new boolean[1_000_001];
         int max = 0;
         for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(stz.nextToken());
             max = Math.max(max, arr[i]);
-            map.put(arr[i], i);
+            exists[arr[i]] = true;
         }
 
-        int[] score = new int[N];
+        int[] score = new int[1_000_001];
         for (int i = 0; i < N; i++) {
             int number = arr[i];
             for (int j = number * 2; j <= max; j += number) {
-                if (map.get(j) != null) {
-                    score[map.get(j)]--;
-                    score[i]++;
+                if (exists[j]) {
+                    score[j]--;
+                    score[number]++;
                 }
             }
         }
 
-        for (int i : score) {
-            System.out.print(i + " ");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < N; i++) {
+            sb.append(score[arr[i]] + " ");
         }
+        System.out.println(sb.toString().trim());
     }
 }
