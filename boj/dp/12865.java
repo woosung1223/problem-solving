@@ -15,7 +15,7 @@ public class Main {
         단, 배낭이 이미 차서 들어갈 수 없다면 해당 물건의 무게만큼 비운 경우의 가치에 더하기
 
         - 점화식
-        N은 물건의 번호, W는 물건의 무게
+        N은 물건의 번호, W는 배낭의 용량
         cost[N][W] = Math.max(cost[N - 1][W - WEIGHT[N]] + VALUE[N],
                         cost[N - 1][W]);
      */
@@ -41,7 +41,7 @@ public class Main {
 
         for (int i = 1; i <= N; i++) {
             for (int j = 1; j <= K; j++) {
-                if (weight[i] <= j) { // 현재 물건의 무게가 배낭의 현재 무게보다 작거나 같다면 뺄 수 있음
+                if (weight[i] <= j) { // 현재 물건의 무게가 배낭의 용량보다 작거나 같다면 뺄 수 있음
                     dp[i][j] = Math.max(dp[i - 1][j - weight[i]] + value[i],
                             dp[i - 1][j]);
                 } else {
